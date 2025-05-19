@@ -4,3 +4,5 @@ static/Scripts/*
 
 data/output/*
 !data/output/.gitkeep
+
+.venv
