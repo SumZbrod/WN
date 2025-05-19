@@ -177,7 +177,7 @@ def make_total_script():
         outfile_path = os.path.join(outdir_path, file_name)
         infile_path = os.path.join(indir_path, file_name.replace('.txt', '.json'))
         # print(outfile_path)
-        with open(outfile_path) as f:
+        with open(outfile_path, encoding='utf-8') as f:
             text = f.read() 
 
         parsed_output = parse_convert_script(text)
