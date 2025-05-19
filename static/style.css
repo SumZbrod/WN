@@ -1,0 +1,120 @@
+
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 100vh; /* Растягивает изображение по высоте, сохраняя пропорции */
+}
+
+
+#text-container {
+    width: 100%; /* Контейнер занимает всю ширину */
+    max-height: 80vh;
+    overflow-y: auto;
+    box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+    min-height: 12vh;
+    background-color: rgba(0,0,0,.1);
+    border-radius: 24px;
+    z-index: 15;
+}
+
+.text-box {
+    position: relative;
+    margin: 10px 0;
+    /* padding: 20px; */
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.4);
+    box-sizing: border-box;
+    overflow: hidden;
+    z-index: 16;
+
+}
+
+.original, .translated {
+    font-size: 30px;
+    padding-left: 45px;
+    line-height: 0;
+    width: 100%;
+    position: relative; /* Изменено на relative для упрощения */
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    color: white; /* Устанавливает цвет текста */
+    text-shadow: 
+        2px 2px 3px rgba(0, 0, 0, 1), /* Тень для текста */
+        -1px -1px 0 black,  /* Обводка - верхний левый угол */
+        1px -1px 0 black,   /* Обводка - верхний правый угол */
+        -1px 1px 0 black,   /* Обводка - нижний левый угол */
+        1px 1px 0 black;    /* Обводка - нижний правый угол */
+    padding-bottom: 10px;
+}
+
+.translated {
+    display: none;
+    z-index: 19;
+}
+
+.original {
+    z-index: 20;
+}
+
+
+/* Audio player */
+.audio-player {
+    font-family: sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  .timeline {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background: #ccc;
+    margin: 10px 0;
+    cursor: pointer;
+    z-index: 20;
+  }
+  
+
+  .play-button {
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+  .progress {
+    position: absolute;
+    height: 100%;
+    background: #4caf50;
+    width: 0%;
+    pointer-events: none;
+  }
+  
+  .marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: red;
+    pointer-events: none;
+  }
+  
+
+.sprite {
+    /* width: 50px; /* Ширина одного кадра спрайта 
+    height: 50px; Высота одного кадра спрайта */
+    background-repeat: no-repeat;
+    position: 'absolute';
+}
+
+
+.time {
+    margin-left: 1em;
+    white-space: nowrap;
+}
+
+
+
+
+

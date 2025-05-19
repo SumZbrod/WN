@@ -1,0 +1,16 @@
+export function typeEffect(element, text, duration) {
+    const totalChars = text.length;
+    const interval = * duration / totalChars;
+    let currentChar = 0;
+
+    element.textContent = ''; // Очистка текста перед началом анимации
+
+    const typingInterval = setInterval(() => {
+        if (currentChar < totalChars) {
+            element.textContent += text[currentChar];
+            currentChar++;
+        } else {
+            clearInterval(typingInterval);
+        }
+    }, interval);
+}
