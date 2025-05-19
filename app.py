@@ -40,10 +40,10 @@ def get_text():
 def menu():
     script_path = 'static/Scripts'
     if not os.path.exists(script_path) or os.listdir(script_path):
-        try:
+        # try:
             make_total_script()
-        except Exception as e:
-            return render_template('error.html', error_message=e)
+        # except Exception as e:
+            # return render_template('error.html', error_message=e)
 
 
     scripts = sorted(os.listdir(script_path))
