@@ -12,23 +12,42 @@ let currentIndex = 0;
 const batchSize = 20; // Размер пачки
 const container = document.getElementById('audio-container');
 const Player = createAudioPlayerHTML(container, '/static/test.ogg');
+let scriptName;
+let globalIndex = 0;
+console.log('Script Name:', scriptName);
 
-function fetchTextBatch(callback) {
+
+function fetchTextBatch(callback, new_gi=0) {
     // console.log("Fetching new batch of text...");
+    // Создаем объект URL с текущим URL
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+
+    scriptName = params.get('script_name')
+    if (new_gi===0) {
+        globalIndex = parseFloat(params.get('global_index'));
+    }
+    // Используем URLSearchParams для извлечения параметров
+    globalIndex += new_gi;
+    // Выводим значения в консоль
+    // Выводим значения в консоль
+    console.log('new_gi:', new_gi);
+    console.log('Global Index:', globalIndex);
+
     fetch(`/get_text?script_name=${scriptName}&global_index=${globalIndex}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-            const res = response.json();
-            return res;
-        })
-        .then(batch => {
-            callback(batch);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok' + response.statusText);
+        }
+        const res = response.json();
+        return res;
+    })
+    .then(batch => {
+        callback(batch);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
 }
 
 function addNextBlock() {
@@ -166,11 +185,11 @@ function addNextBlock() {
         if (currentIndex === batchSize / 2) {
             fetchTextBatch((batch) => {
                 // console.log('Preload next batch')
-                if (batch['global_index'] == -1) {
+                if (batch.length===0) {
                     return;
                 }
                 nextBatch = batch;
-            });
+            },batchSize);
         }
         if (item.wait_time >= 0) {
             setTimeout(() => {

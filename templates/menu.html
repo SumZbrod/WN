@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WN</title>
+    <!-- Подключаем файл menu.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="glitch">Choose Your Script</h1>
+        <ul class="script-list">
+            {% for script in scripts %}
+                <li class="script-item"><a href="/?script_name={{ script }}&global_index=-1">{{ script }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

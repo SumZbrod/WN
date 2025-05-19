@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <!-- Подключаем файл menu.css для использования стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <style>
+        /* Дополнительные стили для страницы ошибок, если необходимо */
+        .error-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-message {
+            font-size: 2em;
+            color: #ff4d4d;
+            margin: 20px 0;
+            animation: glitch 1.5s infinite;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #00ff00;
+            font-size: 1.2em;
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #222;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #333;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="glitch">Error Occurred</h1>
+        <p class="error-message">{{ error_message }}</p>
+        <a href="{{ url_for('menu') }}" class="back-link">Go Back to Menu</a>
+    </div>
+</body>
+</html>

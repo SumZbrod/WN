@@ -1,3 +1,6 @@
 static/StreamingAssets/
 static/Scripts/*
 !static/Scripts/.gitkeep
+
+data/output/*
+!data/output/.gitkeep

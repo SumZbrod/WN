@@ -1,0 +1,96 @@
+/* menu.css */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: left;
+}
+
+.script-list {
+    list-style-type: none;
+    top: 100px;
+    position: absolute;
+    left: 100px;
+}
+
+.script-item {
+    margin: 10px 0;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.script-item a {
+    text-decoration: none;
+    color: #00ff00;
+    font-size: 1.2em;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #222;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.script-item a:hover {
+    background-color: #333;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.glitch {
+    position: relative;
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        clip: rect(24px, 9999px, 30px, 0);
+        transform: skew(0.3deg);
+    }
+    10% {
+        clip: rect(56px, 9999px, 44px, 0);
+        transform: skew(0.4deg);
+    }
+    20% {
+        clip: rect(20px, 9999px, 36px, 0);
+        transform: skew(0.5deg);
+    }
+    30% {
+        clip: rect(42px, 9999px, 80px, 0);
+        transform: skew(0.3deg);
+    }
+    40% {
+        clip: rect(12px, 9999px, 54px, 0);
+        transform: skew(0.6deg);
+    }
+    50% {
+        clip: rect(50px, 9999px, 70px, 0);
+        transform: skew(0.2deg);
+    }
+    60% {
+        clip: rect(10px, 9999px, 40px, 0);
+        transform: skew(0.7deg);
+    }
+    70% {
+        clip: rect(30px, 9999px, 60px, 0);
+        transform: skew(0.3deg);
+    }
+    80% {
+        clip: rect(20px, 9999px, 30px, 0);
+        transform: skew(0.5deg);
+    }
+    90% {
+        clip: rect(60px, 9999px, 90px, 0);
+        transform: skew(0.4deg);
+    }
+    100% {
+        clip: rect(40px, 9999px, 60px, 0);
+        transform: skew(0.6deg);
+    }
+}
