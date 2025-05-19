@@ -20,6 +20,7 @@ git clone https://github.com/SumZbrod/WN.git
 cd WN
 python -m venv .venv
 .\.venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
 ## Breakdown Installation
