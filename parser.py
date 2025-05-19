@@ -183,7 +183,7 @@ def make_total_script():
         parsed_output = parse_convert_script(text)
         # print(parsed_output[232])
 
-        with open(infile_path, 'w') as f:
+        with open(infile_path, 'w', encoding='utf-8') as f:
             json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def make_example():
