@@ -15,12 +15,13 @@ const Player = createAudioPlayerHTML(container, '/static/test.ogg');
 
 function fetchTextBatch(callback) {
     // console.log("Fetching new batch of text...");
-    fetch('/get_text')
+    fetch(`/get_text?script_name=${scriptName}&global_index=${globalIndex}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok' + response.statusText);
             }
-            return response.json();
+            const res = response.json();
+            return res;
         })
         .then(batch => {
             callback(batch);
@@ -165,6 +166,9 @@ function addNextBlock() {
         if (currentIndex === batchSize / 2) {
             fetchTextBatch((batch) => {
                 // console.log('Preload next batch')
+                if (batch['global_index'] == -1) {
+                    return;
+                }
                 nextBatch = batch;
             });
         }
