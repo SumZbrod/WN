@@ -1,5 +1,6 @@
 import re
 import json
+import os
 
 def parse_script(script):
     # script = re.sub(r'^\s*if.*\n?', '', script, flags=re.MULTILINE)
@@ -37,7 +38,7 @@ def parse_script(script):
             if fun == "OutputLine":
                 if len(arg) > 5:
                     new_arg = arg[:3] + arg[-1:]
-                    new_arg[3] = ', '.join(arg[3:-1])
+                    new_arg[3] = ', '.join(map(str, arg[3:-1]))
                     command['arg'] = new_arg 
 
     return commands_blocks
@@ -149,29 +150,59 @@ def transform_to_text(commands_blocks):
         else:
             opt_res_commands.append(res_commands[i])
             i += 1
+    for i, C in enumerate(opt_res_commands):
+        C['global_index'] = i
     return opt_res_commands
 
+def parse_convert_script(script):
+    parsed_output = parse_script(script)
+    parsed_output = transform_to_text(parsed_output)
+    return parsed_output
 
+def make_total_script():
+    outdir_path = 'static/StreamingAssets/Scripts'
+    indir_path = 'static/Scripts'
+    assert os.path.exists(outdir_path), 'Folder `static/StreamingAssets/Scripts/` doesnt exist'
 
-script_pth = 'static/StreamingAssets/Update/tata_002.txt'
-with open(script_pth) as f:
-    script = f.read()
+    if not os.path.exists(indir_path):
+        os.mkdir(indir_path)
 
-parsed_output = parse_script(script)
+    file_list = os.listdir(outdir_path)
+    # file_list = ['tata_ep01.txt']
+    for file_name in file_list:
+        if not file_name.endswith('.txt'):
+            continue
+        # print(file_name)
+        outfile_path = os.path.join(outdir_path, file_name)
+        infile_path = os.path.join(indir_path, file_name.replace('.txt', '.json'))
 
-with open('data/output/raw_script.json', 'w') as f:
-    json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+        with open(outfile_path) as f:
+            text = f.read() 
 
+        parsed_output = parse_convert_script(text)
 
-parsed_output = transform_to_text(parsed_output)
+        with open(infile_path, 'w') as f:
+            json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
-print(len(parsed_output))
-with open('data/output/script.json', 'w') as f:
-    json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+def make_example():
+    script_pth = 'static/StreamingAssets/Update/tata_002.txt'
+    with open(script_pth) as f:
+        script = f.read()
 
+    parsed_output = parse_script(script)
 
-b = 'すなわち…失格ってことになるのかなッ？！？！」'
-for i, a in enumerate(parsed_output): 
-    if a[ "block_type"] == "speach_line":
-        if a['content']['orig'] == b:
-            print(i)
+    with open('data/output/raw_script.json', 'w') as f:
+        json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+
+    parsed_output = transform_to_text(parsed_output)
+
+    print(len(parsed_output))
+    with open('data/output/script.json', 'w') as f:
+        json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+
+def main():
+    # make_example()
+    make_total_script()
+
+if __name__ == '__main__':
+    main()
