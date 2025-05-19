@@ -5,9 +5,14 @@ This guide will walk you through the steps required to set up a local server for
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your machine:
-
-- Python (version 3.6 or higher)
-- Git
+<ul data-start="200" data-end="360">
+<li data-start="200" data-end="278">
+<p data-start="202" data-end="278"><span class="relative -mx-px my-[-0.2rem] rounded px-px py-[0.2rem] transition-colors duration-100 ease-in-out"><span class="_fadeIn_m1hgl_8">Python </span><span class="_fadeIn_m1hgl_8">3.8 </span><span class="_fadeIn_m1hgl_8">or </span><span class="_fadeIn_m1hgl_8">higher </span><span class="_fadeIn_m1hgl_8">installed </span><span class="_fadeIn_m1hgl_8">on </span><span class="_fadeIn_m1hgl_8">your </span><span class="_fadeIn_m1hgl_8">system. </span><span class="_fadeIn_m1hgl_8">You </span><span class="_fadeIn_m1hgl_8">can </span><span class="_fadeIn_m1hgl_8">download </span><span class="_fadeIn_m1hgl_8">it </span><span class="_fadeIn_m1hgl_8">from </span><span class="_fadeIn_m1hgl_8">the </span><a href="https://www.python.org/downloads/" data-start="76" data-end="136" rel="noopener noreferrer" target="_new"><span class="_fadeIn_m1hgl_8">official </span><span class="_fadeIn_m1hgl_8">Python </span><span class="_fadeIn_m1hgl_8">website</span></a><span class="_fadeIn_m1hgl_8">.</span></span></p>
+</li>
+<li data-start="280" data-end="360">
+<p data-start="282" data-end="360"><span class="relative -mx-px my-[-0.2rem] rounded px-px py-[0.2rem] transition-colors duration-100 ease-in-out"><span class="_fadeIn_m1hgl_8">Git </span><span class="_fadeIn_m1hgl_8">installed </span><span class="_fadeIn_m1hgl_8">on </span><span class="_fadeIn_m1hgl_8">your </span><span class="_fadeIn_m1hgl_8">system. </span><span class="_fadeIn_m1hgl_8">You </span><span class="_fadeIn_m1hgl_8">can </span><span class="_fadeIn_m1hgl_8">download </span><span class="_fadeIn_m1hgl_8">it </span><span class="_fadeIn_m1hgl_8">from </span><span class="_fadeIn_m1hgl_8">the </span><a href="https://git-scm.com/downloads" data-start="59" data-end="112" rel="noopener noreferrer" target="_new"><span class="_fadeIn_m1hgl_8">official </span><span class="_fadeIn_m1hgl_8">Git </span><span class="_fadeIn_m1hgl_8">website</span></a><span class="_fadeIn_m1hgl_8">.</span></span></p>
+</li>
+</ul>
 
 ## Installation
 
