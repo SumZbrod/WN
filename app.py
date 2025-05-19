@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 import json
 from parser import make_total_script
 app = Flask(__name__, static_folder='static')
@@ -13,6 +13,9 @@ batch_size = 20
 def index():
     script_name = request.args.get('script_name', default='', type=str)
     global_index =  request.args.get('global_index', default=0, type=int)
+    if script_name == '':
+        return redirect("/menu", code=302)
+
     return render_template('index.html', script_name=script_name, global_index=global_index)
 
 @app.route('/get_text')
