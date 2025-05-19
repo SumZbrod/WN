@@ -94,3 +94,15 @@ body {
         transform: skew(0.6deg);
     }
 }
+
+
+.script-link.active {
+    background-color: #3f3333; /* Темный фон */
+    color: #d38612; /* Темно-фиолетовый текст */
+}
+
+
+.script-link.finish {
+    background-color: #333; /* Темный фон */
+    color: #8A2BE2; /* Темно-фиолетовый текст */
+}

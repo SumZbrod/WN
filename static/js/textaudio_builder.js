@@ -16,6 +16,13 @@ let scriptName;
 let globalIndex = 0;
 console.log('Script Name:', scriptName);
 
+function exti_to_menu() {
+    let scriptsArray = JSON.parse(localStorage.getItem('finishScript'));
+    scriptsArray.push(scriptName);
+    localStorage.setItem('finishScript', JSON.stringify(scriptsArray));
+    window.location.assign('/menu');
+    console.log(scriptsArray);
+}
 
 function fetchTextBatch(callback, new_gi=0) {
     // console.log("Fetching new batch of text...");
@@ -198,7 +205,7 @@ function addNextBlock() {
     else {
         currentBatch = nextBatch;
         if (currentBatch.length===0) {
-            window.location.assign('/menu');
+            exti_to_menu()
             return;
         }
         currentIndex = 0;
