@@ -27,7 +27,7 @@ def get_text():
     script_path = os.path.join('static/Scripts', script_name)
     print(script_path)
     print(global_index)
-    with open(script_path) as f:
+    with open(script_path, encoding='utf-8') as f:
         texts = json.load(f)
 
     if global_index >= len(texts):  # Проверка на конец списка текстов

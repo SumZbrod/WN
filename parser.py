@@ -184,6 +184,7 @@ def make_total_script():
         # print(parsed_output[232])
 
         with open(infile_path, 'w', encoding='utf-8') as f:
+            "upda"
             json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def make_example():
