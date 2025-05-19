@@ -15,6 +15,14 @@ Before you begin, ensure you have the following installed on your machine:
 </ul>
 
 ## Installation
+```
+git clone https://github.com/SumZbrod/WN.git
+cd WN
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+## Breakdown Installation
 
 1. **Clone the Repository**
 
