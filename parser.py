@@ -162,7 +162,7 @@ def parse_convert_script(script):
 def make_total_script():
     outdir_path = 'static/StreamingAssets/Update'
     indir_path = 'static/Scripts'
-    assert os.path.exists(outdir_path), 'Folder `static/StreamingAssets/Scripts/` doesnt exist'
+    assert os.path.exists(outdir_path), 'Folder `static/StreamingAssets/Update/` doesnt exist'
 
     if not os.path.exists(indir_path):
         os.mkdir(indir_path)

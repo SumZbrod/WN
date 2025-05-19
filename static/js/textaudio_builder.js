@@ -185,9 +185,7 @@ function addNextBlock() {
         if (currentIndex === batchSize / 2) {
             fetchTextBatch((batch) => {
                 // console.log('Preload next batch')
-                if (batch.length===0) {
-                    return;
-                }
+                
                 nextBatch = batch;
             },batchSize);
         }
@@ -199,6 +197,10 @@ function addNextBlock() {
     }
     else {
         currentBatch = nextBatch;
+        if (currentBatch.length===0) {
+            window.location.assign('/menu');
+            return;
+        }
         currentIndex = 0;
         nextBatch = [];
         if (currentBatch) {
@@ -228,9 +230,6 @@ function setupTextAudio() {
         }
         else if (event.code === 'KeyS') {
             Player.stop();
-        }
-        else if (event.code === 'KeyD') {
-            Player.stop;
         }
     });
     
