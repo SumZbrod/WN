@@ -160,7 +160,7 @@ def parse_convert_script(script):
     return parsed_output
 
 def make_total_script():
-    outdir_path = 'static/StreamingAssets/Scripts'
+    outdir_path = 'static/StreamingAssets/Update'
     indir_path = 'static/Scripts'
     assert os.path.exists(outdir_path), 'Folder `static/StreamingAssets/Scripts/` doesnt exist'
 
@@ -169,23 +169,25 @@ def make_total_script():
 
     file_list = os.listdir(outdir_path)
     # file_list = ['tata_ep01.txt']
+    # file_list = ['tata_001.txt']
     for file_name in file_list:
         if not file_name.endswith('.txt'):
             continue
         # print(file_name)
         outfile_path = os.path.join(outdir_path, file_name)
         infile_path = os.path.join(indir_path, file_name.replace('.txt', '.json'))
-
+        # print(outfile_path)
         with open(outfile_path) as f:
             text = f.read() 
 
         parsed_output = parse_convert_script(text)
+        # print(parsed_output[232])
 
         with open(infile_path, 'w') as f:
             json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def make_example():
-    script_pth = 'static/StreamingAssets/Update/tata_002.txt'
+    script_pth = 'static/StreamingAssets/Update/tata_001.txt'
     with open(script_pth) as f:
         script = f.read()
 
@@ -200,8 +202,20 @@ def make_example():
     with open('data/output/script.json', 'w') as f:
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
+def test_parse_convert_script():
+    script_pth = 'static/StreamingAssets/Update/tata_001.txt'
+    with open(script_pth) as f:
+        script = f.read()
+    parsed_output = parse_convert_script(script)
+    print(parsed_output[232])
+
+    print(len(parsed_output))
+    with open('data/output/script.json', 'w') as f:
+        json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+
 def main():
     # make_example()
+    test_parse_convert_script()
     make_total_script()
 
 if __name__ == '__main__':
