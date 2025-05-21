@@ -69,7 +69,7 @@ def transform_to_text(commands_blocks):
                 'translate': prepare_text(comand["arg"][3]),
                 'audioPath': audio_path 
             }
-            if comand["arg"][-1] == "Line_Continue":
+            if False and comand["arg"][-1] == "Line_Continue":
                 wait_time = round(len(content['orig']) * .1, 3)
             else:
                 wait_time = -1
