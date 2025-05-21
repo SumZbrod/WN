@@ -106,7 +106,3 @@ If the application is set up correctly, the Flask development server should star
 - This guide assumes you are familiar with basic command-line operations.
 
 For more details, refer to the official [Flask documentation](https://flask.palletsprojects.com/) for additional information on developing with Flask.
-
----
-
-Feel free to reach out if you encounter any issues or need further assistance.
