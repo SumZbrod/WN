@@ -64,8 +64,8 @@ function addNextBlock() {
         console.log('item.block_type', item.block_type)
         if (item.block_type === "speach_line") {
             // console.log('type speach')
+            const block_id = item.global_index;
             const content = item.content
-            
             const textBox = document.createElement('div');
             textBox.classList.add('text-box');
             
@@ -156,6 +156,7 @@ function addNextBlock() {
             
             textBox.appendChild(originalText);
             textBox.appendChild(translatedText);
+            textBox.dataset['block_id'] = block_id;
             textContainer.appendChild(textBox);
             
 
