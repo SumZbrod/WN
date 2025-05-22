@@ -14,16 +14,8 @@ Before you begin, ensure you have the following installed on your machine:
 </li>
 </ul>
 
-## Installation
-```
-git clone https://github.com/SumZbrod/WN.git
-cd WN
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
 
-## Breakdown Installation
+## Installation
 
 1. **Clone the Repository**
 
@@ -106,7 +98,3 @@ If the application is set up correctly, the Flask development server should star
 - This guide assumes you are familiar with basic command-line operations.
 
 For more details, refer to the official [Flask documentation](https://flask.palletsprojects.com/) for additional information on developing with Flask.
-
----
-
-Feel free to reach out if you encounter any issues or need further assistance.
