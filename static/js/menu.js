@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Добавляем обработчик событий на каждую ссылку
     const scriptsArray = JSON.parse(localStorage.getItem('finishScript'));
+    const save_memory = JSON.parse(localStorage['save_memory']);
     scriptLinks.forEach(link => {
         let link_name = link.textContent.trim();
         link.addEventListener('click', function (event) {
@@ -27,9 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
             // Добавляем класс active к нажатой ссылке
             link.classList.add('active');
         });
+        if (link_name in save_memory) {
+            console.log('link.href', link.href);
+            const url = new URL(link.href);
+            const save_index = save_memory[link_name];
+            url.searchParams.set('global_index', save_index);
+            link.href = url.toString();
+        }
         if (scriptsArray.includes(link_name)) {
             link.classList.add('finish');
         }
     });
-    
+
 });

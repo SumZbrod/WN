@@ -1,8 +1,9 @@
-import {BGMSE_player, BGM_mute} from './BGMSE_module.js'
-import {typeEffect} from "./TypingModule.js"
-import {Draw_CG, DrawSprite, clearAllSprites} from "./Paiting.js"
+import {BGMSE_player, BGM_mute} from './BGMSE_module.js';
+import {typeEffect} from "./TypingModule.js";
+import {Draw_CG, DrawSprite, clearAllSprites} from "./Paiting.js";
 import { createAudioPlayerHTML } from './AudioPlayer.js';
-import {trimAndSendAudio} from './anki_send.js'
+import {trimAndSendAudio} from './anki_send.js';
+import {saveLocalId} from './save_list.js';
 
 // Texts
 const textContainer = document.getElementById('text-container');
@@ -25,8 +26,6 @@ function exti_to_menu() {
 }
 
 function fetchTextBatch(callback, new_gi=0) {
-    // console.log("Fetching new batch of text...");
-    // Создаем объект URL с текущим URL
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
 
@@ -36,11 +35,6 @@ function fetchTextBatch(callback, new_gi=0) {
     }
     // Используем URLSearchParams для извлечения параметров
     globalIndex += new_gi;
-    // Выводим значения в консоль
-    // Выводим значения в консоль
-    console.log('new_gi:', new_gi);
-    console.log('Global Index:', globalIndex);
-
     fetch(`/get_text?script_name=${scriptName}&global_index=${globalIndex}`)
     .then(response => {
         if (!response.ok) {
@@ -204,6 +198,7 @@ function addNextBlock() {
         }
     }
     else {
+        saveLocalId();
         currentBatch = nextBatch;
         if (currentBatch.length===0) {
             exti_to_menu()
