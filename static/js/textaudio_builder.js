@@ -4,6 +4,7 @@ import {Draw_CG, DrawSprite, clearAllSprites} from "./Paiting.js";
 import { createAudioPlayerHTML } from './AudioPlayer.js';
 import {trimAndSendAudio} from './anki_send.js';
 import {saveLocalId} from './save_list.js';
+import { loadFromLastAction } from './save_localstorage.js';
 
 // Texts
 const textContainer = document.getElementById('text-container');
@@ -15,7 +16,32 @@ const container = document.getElementById('audio-container');
 const Player = createAudioPlayerHTML(container, '/static/test.ogg');
 let scriptName;
 let globalIndex = 0;
-console.log('Script Name:', scriptName);
+
+
+export function loadSaveScene(){
+    const lastAction = JSON.parse(localStorage['lastAction']);
+    console.log('lastAction', lastAction);
+    for (let key in lastAction){
+        console.log('key', key);
+        let value = lastAction[key];
+        console.log('typeof(value)', typeof(value));
+        if (key === 'CG') {
+            Draw_CG(value);
+        }
+        else if (key === 'spriteParams') {
+            value = JSON.parse(value);
+            value.forEach(element => {
+                DrawSprite(element[0], element[1], false);
+            });
+        }
+        else if (key === 'BGM') {
+            console.log('value', value);
+            if (value[0].length > 0) {
+                BGMSE_player(value[0], value[1], 'BGM');
+            }
+        }
+    }
+}
 
 function exti_to_menu() {
     let scriptsArray = JSON.parse(localStorage.getItem('finishScript'));
@@ -239,8 +265,15 @@ function setupTextAudio() {
     // Инициализация с первой пачки
     fetchTextBatch((batch) => {
         currentBatch = batch;
+        if (scriptName == loadFromLastAction('script_name')) {
+            loadSaveScene();
+        }
     });
     
+    const menu_button = document.querySelector('.menu-button');
+    menu_button.addEventListener('click', async (event) => {
+        window.location.assign('/menu');
+    })
 }
 
 

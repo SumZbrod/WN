@@ -1,10 +1,10 @@
+import {save2LastAction} from './save_localstorage.js'
 
 const bgmCache = new Map();
 const seCache = new Map();
 const voiceCache = new Map();
 let bgmAudioArray = [null, null, null, null, null, null, null];
 let seAudioArray = [null, null, null, null, null, null, null];
-let voiceAudioArray = [null, null, null, null, null, null, null];
 let BGM_volume = .2;
 let SE_volume = .3;
 const MAX_BGMSE_CACHE_SIZE = 5;
@@ -39,14 +39,18 @@ export function BGM_mute(channel) {
             bgmAudioArray[channel].stop();
         }
     } 
+    save2LastAction('BGM', '');
 }
  
 export function BGMSE_player(path, channel, audio_type) {
+    console.log('BGMSE_player', path, channel, audio_type);
     if (audio_type === 'BGM') {
         let Audio = cacheAudio(bgmCache, path, true, BGM_volume);
             BGM_mute(channel);
             bgmAudioArray[channel] = Audio;
             bgmAudioArray[channel].play();
+            save2LastAction('BGM', [path, channel]);
+
     }
     else if (audio_type === 'SE') { 
         let Audio = cacheAudio(seCache, path);
@@ -58,16 +62,6 @@ export function BGMSE_player(path, channel, audio_type) {
             seAudioArray[channel] = Audio;
             seAudioArray[channel].play();
     }
-    // else if (audio_type === 'voice') { 
-    //     let Audio = cacheAudio(voiceCache, path, false, 1);
-    //         if (voiceAudioArray[channel]) {
-    //             if (voiceAudioArray[channel].playing()) {
-    //                 voiceAudioArray[channel].stop();
-    //             }
-    //         } 
-    //         voiceAudioArray[channel] = Audio;
-    //         voiceAudioArray[channel].play();
-    // }
     else {
         console.log("Unknown audio type: ", audio_type);
     }

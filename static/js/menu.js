@@ -1,13 +1,20 @@
+import {save2LastAction} from './save_localstorage.js'
+
 document.addEventListener('DOMContentLoaded', function () {
     const scriptLinks = document.querySelectorAll('.script-link');
-    const lastClickedScript = localStorage.getItem('lastClickedScript');
+    if (localStorage['lastAction'] == null){
+        localStorage['lastAction'] = JSON.stringify({});
+    }
+    const lastAction = JSON.parse(localStorage['lastAction']);
+    const script_name = lastAction['script_name'];
+    console.log('script_name', script_name);
     if (localStorage.getItem('finishScript') === null){
         localStorage.setItem('finishScript', JSON.stringify([]));
     }
     // Если ранее была нажата кнопка, применяем стиль
-    if (lastClickedScript) {
+    if (script_name) {
         scriptLinks.forEach(link => {
-            if (link.textContent.trim() === lastClickedScript) {
+            if (link.textContent.trim() === script_name) {
                 link.classList.add('active');
             }
         });
@@ -18,13 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
     scriptLinks.forEach(link => {
         let link_name = link.textContent.trim();
         link.addEventListener('click', function (event) {
-            // Сохраняем название нажатой кнопки
-            localStorage.setItem('lastClickedScript', link_name);
-
-            // Удаляем класс active со всех ссылок
+            save2LastAction('script_name', link_name); 
             scriptLinks.forEach(link => link.classList.remove('active'));
-
-            // Добавляем класс active к нажатой ссылке
             link.classList.add('active');
         });
         if (link_name in save_memory) {

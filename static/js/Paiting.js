@@ -1,4 +1,7 @@
+import {loadFromLastAction, save2LastAction} from './save_localstorage.js'
+
 export function Draw_CG(path) {
+    save2LastAction('CG', path)
     document.body.style.backgroundImage = "url('" + path +"')"; 
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundColor = 'black';
@@ -10,7 +13,16 @@ export function Draw_CG(path) {
 }
 
 
-export function DrawSprite(path, positionX) {
+export function DrawSprite(path, positionX, add_to_save=true) {
+    if (add_to_save) {
+        let sprite_params = loadFromLastAction('spriteParams');
+        if (sprite_params == null) {
+            sprite_params = '[]';
+        }
+        sprite_params = JSON.parse(sprite_params);
+        sprite_params.push([path, positionX]);
+        save2LastAction('spriteParams', JSON.stringify(sprite_params));
+    }
     const spriteElement = document.createElement('div');
     spriteElement.classList.add('sprite');
 
@@ -39,4 +51,5 @@ export function DrawSprite(path, positionX) {
 export function clearAllSprites() {
     const sprites = document.querySelectorAll('.sprite');
     sprites.forEach(sprite => sprite.remove());
+    save2LastAction('spriteParams', "[]");
 }
