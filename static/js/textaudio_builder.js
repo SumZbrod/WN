@@ -1,4 +1,4 @@
-import {BGMSE_player, BGM_mute} from './BGMSE_module.js';
+import {BGMSE_player, BGM_mute, changeBGMSEVolume} from './BGMSE_module.js';
 import {typeEffect} from "./TypingModule.js";
 import {Draw_CG, DrawSprite, clearAllSprites} from "./Paiting.js";
 import { createAudioPlayerHTML } from './AudioPlayer.js';
@@ -274,6 +274,21 @@ function setupTextAudio() {
     menu_button.addEventListener('click', async (event) => {
         window.location.assign('/menu');
     })
+
+    const BGMSEvolumeSlider = document.getElementById('bgmseVolume');
+    BGMSEvolumeSlider.addEventListener('input', function () {
+        console.log(this.value);
+        changeBGMSEVolume(this.value);
+    });
+
+
+    const voiceVolumeSlider = document.getElementById('voiceVolume');
+    voiceVolumeSlider.addEventListener('input', function () {
+        console.log(this.value);
+        Player.changeVolume(this.value);
+    });
+
+
 }
 
 

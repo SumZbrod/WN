@@ -14,6 +14,8 @@ export class AudioPlayer {
       this.intervalId = null;
       this.mark = null;
       this.markerEl = null;
+      this.audioID = null;
+      this.volume = .5;
   
       // Привязка событий к кнопкам
       this.playButton.addEventListener('click', () => this.play());
@@ -34,6 +36,7 @@ export class AudioPlayer {
       this.currentHowl = new Howl({
         src: [url],
         html5: true,
+        volume: this.volume,
         onload: () => {
           this.duration = this.currentHowl.duration();
         },
@@ -42,13 +45,15 @@ export class AudioPlayer {
         }
       });
       this.clearMark();
-      this.play();
+      this.audioID = this.play();
     }
   
     play() {
       if (!this.currentHowl) return;
       // this.currentHowl.stop();
-      this.currentHowl.play();
+      this.audioID = this.currentHowl.play();
+      console.log('play() this.audioID', this.audioID)
+
       this.startProgressTracking();
     }
   
@@ -62,10 +67,12 @@ export class AudioPlayer {
     clear() {
         this.stop();
         this.clearMark();
+        console.log('clear() this.audioID', this.audioID)
+        this.audioID = null;
     }
     repeat() {
         this.stop();
-        this.play();
+        this.audioID = this.play();
     }
     setMark(event) {
       if (!this.currentHowl || !this.duration) return;
@@ -85,7 +92,7 @@ export class AudioPlayer {
       this.timeline.appendChild(this.markerEl);
   
       this.currentHowl.seek(time);
-      this.play();
+      this.audioID = this.play();
     }
   
     clearMark() {
@@ -95,7 +102,15 @@ export class AudioPlayer {
       }
       this.mark = null;
     }
-  
+ 
+    changeVolume(value) {
+      this.volume = value;
+      console.log('this.audioID', this.audioID);
+      if (this.audioID) {
+        this.currentHowl.volume(value, this.audioID);
+      }
+    }
+
     updateTimeline(currentTime) {
       const percent = (currentTime / this.duration) * 100;
       this.progress.style.width = percent + '%';
@@ -167,4 +182,3 @@ export class AudioPlayer {
       stopButton
     }, audioUrl);
   }
-  

@@ -5,6 +5,9 @@ const seCache = new Map();
 const voiceCache = new Map();
 let bgmAudioArray = [null, null, null, null, null, null, null];
 let seAudioArray = [null, null, null, null, null, null, null];
+let bgmAudioArrayID = [null, null, null, null, null, null, null];
+let seAudioArrayID = [null, null, null, null, null, null, null];
+
 let BGM_volume = .2;
 let SE_volume = .3;
 const MAX_BGMSE_CACHE_SIZE = 5;
@@ -43,14 +46,14 @@ export function BGM_mute(channel) {
 }
  
 export function BGMSE_player(path, channel, audio_type) {
-    console.log('BGMSE_player', path, channel, audio_type);
+    let sound_id;
     if (audio_type === 'BGM') {
         let Audio = cacheAudio(bgmCache, path, true, BGM_volume);
             BGM_mute(channel);
             bgmAudioArray[channel] = Audio;
-            bgmAudioArray[channel].play();
+            sound_id = bgmAudioArray[channel].play();
             save2LastAction('BGM', [path, channel]);
-
+            bgmAudioArrayID[channel] = sound_id;
     }
     else if (audio_type === 'SE') { 
         let Audio = cacheAudio(seCache, path);
@@ -60,10 +63,32 @@ export function BGMSE_player(path, channel, audio_type) {
                 }
             } 
             seAudioArray[channel] = Audio;
-            seAudioArray[channel].play();
+            sound_id = seAudioArray[channel].play();
+            seAudioArrayID[channel] = sound_id;
     }
     else {
         console.log("Unknown audio type: ", audio_type);
     }
+    if (sound_id) {
+
+    }
 }
 
+export function changeBGMSEVolume(value) {
+    console.log('changeBGMSEVolume(value)', value)
+    for (let i in bgmAudioArray) {
+        console.log(i);
+        let bgm_audio = bgmAudioArray[i]; 
+        if (bgm_audio){
+            console.log(bgm_audio);
+            let bgm_id = bgmAudioArrayID[i];
+            bgm_audio.volume(value, bgm_id);
+        }
+        let se_audio = seAudioArray[i]; 
+        if (se_audio){
+            let se_id = seAudioArrayID[i];
+            se_audio.volume(value, se_id);
+        }
+    }
+
+}
