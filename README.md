@@ -96,5 +96,3 @@ If the application is set up correctly, the Flask development server should star
 
 - Always ensure your virtual environment is activated when working on the project to avoid conflicts with other Python projects on your machine.
 - This guide assumes you are familiar with basic command-line operations.
-
-For more details, refer to the official [Flask documentation](https://flask.palletsprojects.com/) for additional information on developing with Flask.
