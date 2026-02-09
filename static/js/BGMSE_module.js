@@ -8,7 +8,7 @@ let seAudioArray = [null, null, null, null, null, null, null];
 let bgmAudioArrayID = [null, null, null, null, null, null, null];
 let seAudioArrayID = [null, null, null, null, null, null, null];
 
-let BGM_volume = .2;
+let BGM_volume = .05;
 let SE_volume = .3;
 const MAX_BGMSE_CACHE_SIZE = 5;
 

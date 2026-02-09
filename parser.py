@@ -79,14 +79,14 @@ def transform_to_text(commands_blocks):
         elif fun_name == 'PlayBGM':
             block_type = 'bgmse'
             content = {
-                'path': '/static/StreamingAssets/OGBGM/' + comand['arg'][1] + '.ogg',
+                'path': '/static/StreamingAssets/BGM/' + comand['arg'][1] + '.ogg',
                 'channel': comand['arg'][0],
                 'audio_type': 'BGM'
             }
         elif fun_name == 'PlaySE':
             block_type = 'bgmse'
             content = {
-                'path': '/static/StreamingAssets/OGSE/' + comand['arg'][1] + '.ogg',
+                'path': '/static/StreamingAssets/SE/' + comand['arg'][1] + '.ogg',
                 'channel': comand['arg'][0],
                 'audio_type': 'SE'
             }
@@ -102,12 +102,12 @@ def transform_to_text(commands_blocks):
         elif fun_name == 'DrawScene' or fun_name == 'DrawSceneWithMask':
             block_type = 'draw_cg'
             content = {
-                'path': f'/static/StreamingAssets/OGBackgrounds/{comand['arg'][0]}.png',
+                'path': f'/static/StreamingAssets/CG/{comand['arg'][0]}.png',
             }
         elif fun_name == 'ModDrawCharacter' or fun_name == 'ModDrawCharacterWithFiltering':
             block_type = 'draw_sprite'
             content = {
-                'path': '/static/StreamingAssets/OGSprites/' + comand['arg'][2] + str(int(comand['arg'][3])) + '.png',
+                'path': '/static/StreamingAssets/CG/' + comand['arg'][2] + str(int(comand['arg'][3])) + '.png',
                 'sprite_layer': int(comand['arg'][1]),
             }
             if fun_name == 'ModDrawCharacter':
@@ -215,9 +215,9 @@ def test_parse_convert_script():
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def main():
-    # make_example()
-    test_parse_convert_script()
-    make_total_script()
+    make_example()
+    # test_parse_convert_script()
+    # make_total_script()
 
 if __name__ == '__main__':
     main()

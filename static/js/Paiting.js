@@ -13,41 +13,54 @@ export function Draw_CG(path) {
 }
 
 
-export function DrawSprite(path, positionX, add_to_save=true) {
-    if (add_to_save) {
-        let sprite_params = loadFromLastAction('spriteParams');
-        if (sprite_params == null) {
-            sprite_params = '[]';
-        }
-        sprite_params = JSON.parse(sprite_params);
-        sprite_params.push([path, positionX]);
-        save2LastAction('spriteParams', JSON.stringify(sprite_params));
-    }
+// export function DrawSprite(path, positionX, add_to_save=true) {
+//     if (add_to_save) {
+//         let sprite_params = loadFromLastAction('spriteParams');
+//         if (sprite_params == null) {
+//             sprite_params = '[]';
+//         }
+//         sprite_params = JSON.parse(sprite_params);
+//         sprite_params.push([path, positionX]);
+//         save2LastAction('spriteParams', JSON.stringify(sprite_params));
+//     }
+//     const spriteElement = document.createElement('div');
+//     spriteElement.classList.add('sprite');
+
+//     // // Устанавливаем изображение спрайта
+//     // spriteElement.style.backgroundImage = `url(${path})`;
+//     // spriteElement.style.backgroundRepeat = 'no-repeat';
+//     // spriteElement.style.width = '100%';  
+//     // spriteElement.style.height = '100%';
+
+//     // // Устанавливаем позиционирование
+//     // spriteElement.style.position = 'fixed'; // Делаем элемент позиционированным
+
+//     console.log('positionX', positionX);
+//     // Вычисляем позицию по горизонтали
+//     const halfWindowWidth = window.innerWidth / 2;
+//     const calculatedPositionX = halfWindowWidth + 2*positionX;
+
+//     // Устанавливаем стили для позиционирования
+//     console.log('calculatedPositionX', calculatedPositionX);
+//     // spriteElement.style.left = `${calculatedPositionX}px`; // -25px для центрирования элемента (ширина / 2)
+//     // spriteElement.style.bottom = '0'; // Располагаем низ элемента у нижнего края окна
+//     // spriteElement.style.filter = 'brightness(90%)';
+//     // Добавляем элемент в body
+//     document.body.appendChild(spriteElement);
+// }
+
+export function DrawSprite(path, positionX, add_to_save = true) {
+
     const spriteElement = document.createElement('div');
     spriteElement.classList.add('sprite');
 
-    // Устанавливаем изображение спрайта
     spriteElement.style.backgroundImage = `url(${path})`;
-    spriteElement.style.backgroundRepeat = 'no-repeat';
-    spriteElement.style.width = '100%';  // Установите ширину кадра спрайта
-    spriteElement.style.height = '900px'; // Установите высоту кадра спрайта
 
-    // Устанавливаем позиционирование
-    spriteElement.style.position = 'absolute'; // Делаем элемент позиционированным
+    spriteElement.style.backgroundPositionX = `${positionX}px`;
 
-    console.log('positionX', positionX);
-    // Вычисляем позицию по горизонтали
-    const halfWindowWidth = window.innerWidth / 2 - 600;
-    const calculatedPositionX = halfWindowWidth + 2*positionX;
-
-    // Устанавливаем стили для позиционирования
-    console.log('calculatedPositionX', calculatedPositionX);
-    spriteElement.style.left = `${calculatedPositionX}px`; // -25px для центрирования элемента (ширина / 2)
-    spriteElement.style.bottom = '0'; // Располагаем низ элемента у нижнего края окна
-    spriteElement.style.filter = 'brightness(90%)';
-    // Добавляем элемент в body
     document.body.appendChild(spriteElement);
 }
+
 export function clearAllSprites() {
     const sprites = document.querySelectorAll('.sprite');
     sprites.forEach(sprite => sprite.remove());
