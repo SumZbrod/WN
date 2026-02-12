@@ -188,7 +188,7 @@ def make_total_script():
             json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def make_example():
-    script_pth = 'static/StreamingAssets/Update/tata_001.txt'
+    script_pth = 'static/StreamingAssets/Update/tata_004.txt'
     with open(script_pth) as f:
         script = f.read()
 
@@ -204,7 +204,7 @@ def make_example():
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def test_parse_convert_script():
-    script_pth = 'static/StreamingAssets/Update/tata_001.txt'
+    script_pth = 'static/StreamingAssets/Update/tata_004.txt'
     with open(script_pth) as f:
         script = f.read()
     parsed_output = parse_convert_script(script)

@@ -1,7 +1,8 @@
 function getLastBI() {
     const block_list = document.querySelectorAll('.text-box')
     const last_block = block_list[block_list.length-1];
-    return last_block.dataset['block_id'];
+    if (last_block) return last_block.dataset['block_id'];
+    else return 0;
 }
 
 export function saveLocalId() {
