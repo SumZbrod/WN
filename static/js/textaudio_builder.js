@@ -178,12 +178,8 @@ function addNextBlock() {
             textBox.appendChild(translatedText);
             textBox.dataset['block_id'] = block_id;
             textContainer.appendChild(textBox);
-            
-
-
-
-            textContainer.scrollTo(0, textContainer.scrollHeight+100); // Прокручиваем к началу
             typeEffect(originalText, content.orig);
+            textContainer.scrollTop = textContainer.scrollHeight;
         }
         
         else if (item.block_type === 'bgmse') {

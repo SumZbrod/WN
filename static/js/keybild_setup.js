@@ -1,14 +1,23 @@
 export function setupTranslatorListner() {
+    const textContainer = document.getElementById('text-container');
 
   document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyT') {
       changeVisibility(true);
+      requestAnimationFrame(() => {
+        textContainer.scrollTop = textContainer.scrollHeight;
+    });
+
     }
   });
 
   document.addEventListener('keyup', function(event) {
     if (event.code === 'KeyT') {
       changeVisibility(false);
+      requestAnimationFrame(() => {
+    textContainer.scrollTop = textContainer.scrollHeight;
+});
+
     }
   });
   

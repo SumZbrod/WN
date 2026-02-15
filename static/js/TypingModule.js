@@ -1,4 +1,7 @@
+
+
 export function typeEffect(element, text) {
+    const textContainer = document.getElementById('text-container');
     const totalChars = text.length;
     let interval = 30;
     let currentChar = 0;
@@ -12,5 +15,6 @@ export function typeEffect(element, text) {
         } else {
             clearInterval(typingInterval);
         }
+        textContainer.scrollTop = textContainer.scrollHeight;
     }, interval);
 }
