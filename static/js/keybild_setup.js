@@ -1,6 +1,15 @@
+function isNearBottom(container, threshold = 50) {
+    const distanceFromBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight;
+
+    return distanceFromBottom < threshold;
+}
+
 export function setupTranslatorListner() {
     const textContainer = document.getElementById('text-container');
 
+
+    
   document.addEventListener('keydown', function(event) {
     if (event.code === 'KeyT') {
       changeVisibility(true);
@@ -15,7 +24,9 @@ export function setupTranslatorListner() {
     if (event.code === 'KeyT') {
       changeVisibility(false);
       requestAnimationFrame(() => {
-    textContainer.scrollTop = textContainer.scrollHeight;
+    if (isNearBottom(textContainer)) {
+        textContainer.scrollTop = textContainer.scrollHeight;
+    }
 });
 
     }
@@ -40,10 +51,16 @@ export function setupTranslatorListner() {
 export function setupHideUI() {
 
   let isVisible = true;
-
   document.addEventListener('keyup', function(event) {
-      if (event.key === 'v') {
-          changeVisibility();
+    if (event.key === 'v') {
+      changeVisibility();
+    }
+  });
+  
+  document.addEventListener('keyup', function(event) {
+    console.log('event.key', event.key);
+    if (event.key === 'Escape') {
+          window.location.assign('/menu')
       }
   });
 
