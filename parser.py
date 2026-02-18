@@ -1,7 +1,7 @@
 import re
 import json
 import os
-
+GCensor = 2
 def parse_script(script):
     # script = re.sub(r'^\s*if.*\n?', '', script, flags=re.MULTILINE)
     script_blocks = script.split('//')
@@ -39,6 +39,12 @@ def parse_script(script):
                 if len(arg) > 5:
                     new_arg = arg[:3] + arg[-1:]
                     new_arg[3] = ', '.join(map(str, arg[3:-1]))
+                    command['arg'] = new_arg 
+            if fun == "GetGlobalFlag":
+                if arg[0] and arg[0].startswith('GCensor'):
+                    condition = eval(arg[0].partition('){')[0].replace('GCensor)', GCensor))
+                    file_name = arg[0].partition('ModCallScriptSection(')[-1]
+                    new_arg = [condition, file_name, arg[1]]
                     command['arg'] = new_arg 
 
     return commands_blocks
@@ -117,6 +123,12 @@ def transform_to_text(commands_blocks):
         elif fun_name == 'DisableWindow':
             block_type = 'clear_sprites'
             content = {}
+        elif fun_name == "GetGlobalFlag" and comand['arg'][0]==True:
+            block_type = 'load_dialog'
+            content = {
+                'file_name': comand['arg'][1] + '.txt',
+                'dialog_name': comand['arg'][2],
+            }
         else:
             continue
         res_com = {
@@ -157,7 +169,30 @@ def transform_to_text(commands_blocks):
 def parse_convert_script(script):
     parsed_output = parse_script(script)
     parsed_output = transform_to_text(parsed_output)
+    parsed_output = uplad_dialogs(parsed_output)
     return parsed_output
+
+def uplad_dialogs(korpus):
+    file_name = ''
+    sub_raw_text = ''
+    new_block_dict = {}
+    for i, block in enumerate(korpus):
+        if block['block_type'] == 'load_dialog':
+            content = block['content']
+            if file_name != content['file_name']:
+                file_name = content['file_name']
+                with open('static/StreamingAssets/Update/' + file_name) as f:
+                    sub_raw_text = f.read()
+            pattern = (
+                r'void\s+' + content['dialog_name'] +
+                r'\s*\(\s*\)\s*\{([\s\S]*?)\}(?:\n\n|$)'
+            )
+            re_sub_raw_text = re.findall(pattern, sub_raw_text)
+            if re_sub_raw_text:
+                new_block_dict[i] = transform_to_text(parse_script(re_sub_raw_text[0]))
+    for i in sorted(new_block_dict.keys(), reverse=True):
+        korpus = korpus[:i] + new_block_dict[i] + korpus[i+1:]
+    return korpus
 
 def make_total_script():
     outdir_path = 'static/StreamingAssets/Update'
@@ -181,6 +216,7 @@ def make_total_script():
             text = f.read() 
 
         parsed_output = parse_convert_script(text)
+
         # print(parsed_output[232])
 
         with open(infile_path, 'w', encoding='utf-8') as f:
@@ -188,18 +224,22 @@ def make_total_script():
             json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def make_example():
-    script_pth = 'static/StreamingAssets/Update/tata_004.txt'
+    script_pth = 'static/StreamingAssets/Update/hima_002_03.txt'
+    # script_pth = 'static/StreamingAssets/Update/hima_002_03_vm00_n01.txt'
     with open(script_pth) as f:
         script = f.read()
 
     parsed_output = parse_script(script)
-
     with open('data/output/raw_script.json', 'w') as f:
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
-
     parsed_output = transform_to_text(parsed_output)
 
-    print(len(parsed_output))
+    print('\t',len(parsed_output))
+    # with open('data/output/script.json', 'w') as f:
+    #     json.dump(parsed_output, f, ensure_ascii=False, indent=2)
+
+    parsed_output = uplad_dialogs(parsed_output)
+    print('\t',len(parsed_output))
     with open('data/output/script.json', 'w') as f:
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
@@ -209,15 +249,14 @@ def test_parse_convert_script():
         script = f.read()
     parsed_output = parse_convert_script(script)
     print(parsed_output[232])
-
     print(len(parsed_output))
     with open('data/output/script.json', 'w') as f:
         json.dump(parsed_output, f, ensure_ascii=False, indent=2)
 
 def main():
-    make_example()
+    # make_example()
     # test_parse_convert_script()
-    # make_total_script()
+    make_total_script()
 
 if __name__ == '__main__':
     main()
